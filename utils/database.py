@@ -1,4 +1,7 @@
+import json;
+
 books = [];
 
-def add_book(name, author):
-    books.append({'name': name, 'author': author, 'read': False});
+def add_book():
+    with open('books.json', 'a') as file:
+        json.dump(books, file);
