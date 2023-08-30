@@ -1,1 +1,7 @@
-[{"name": "test", "author": "test", "read": true}, {"name": "pee", "author": "pee", "read": true}]
+[
+    {
+        "name": "test",
+        "author": "test",
+        "read": true
+    }
+]
