@@ -1,27 +1,29 @@
 import json;
 
+#Initial array/list
 books = [];
 
+#generic helper function that is currently called in add_book() and in list_books() in app.py
 def call_books(list_arr):
     print("Generating list of books in directory...................................................................")
-    for book in books:
+    #loops through data/books in a list 
+    for book in list_arr:
         print(f"\nBook Title: {book['name'].title()}\n{book['name'].title()} Author: {book['author'].title()}\n{book['name'].title()} Read?: {book['read']}\n");
 
+#The purpose of this function is so that data from books.json can be added to the books list
 def add_book(list_arr):
     filename = 'utils/books.json';
+    #try/except block for if there's no data in books.json
     try:
+        #Open and read books.json
         with open(filename, 'r') as file:
             data = json.load(file);
             for book in data:
+                #adds each book object/dictionary to list/array
                 list_arr.append(book);
-        print("Generating list of books in directory...................................................................")
-        for book in list_arr:
-            print(f"\nBook Title: {book['name'].title()}\n{book['name'].title()} Author: {book['author'].title()}\n{book['name'].title()} Read?: {book['read']}\n"); 
+        #display data in list/array after being copied
+        call_books(list_arr);
     except FileNotFoundError:
-        print(f"File in directory is empty, improperly formatted, or corrupted");
+        print(f"File in directory is empty, improperly formatted, or corrupted.");
 
-""" def add_book():
-    with open('books.json', 'a') as file:
-        json.dump(books, file);"""
-
-add_book();
+add_book(books);
