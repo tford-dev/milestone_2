@@ -10,6 +10,19 @@ def call_books(list_arr):
     for book in list_arr:
         print(f"\nBook Title: {book['name'].title()}\n{book['name'].title()} Author: {book['author'].title()}\n{book['name'].title()} Read?: {book['read']}\n");
 
+#helper function to open json file
+def read_call(filepath):
+    with open(filepath, 'r') as file:
+        current_data = json.load(file);
+    return current_data;
+
+#helper function to overwrite json file
+def write_call(filepath, list_arr):
+    with open(filepath, 'w') as file:
+        json.dump(list_arr, file, indent=4);
+    return list_arr;
+
+
 #The purpose of this function is so that data from books.json can be added to the books list
 def add_book(list_arr):
     filename = 'utils/books.json';

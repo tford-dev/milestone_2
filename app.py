@@ -23,20 +23,16 @@ def prompt_add_book():
         #template for object to be stored in books.json
         obj_to_push = {'name': book_name, 'author': book_author, 'read': False};
         #open json file
-        with open('utils/books.json', 'r') as file:
-            current_data = json.load(file);
+        current_data = database.read_call('utils/books.json')
         #copy objects as dictionaries into current_data
         current_data.append(obj_to_push);
-        with open('utils/books.json', 'w') as file:
-            #overwrite data in books.json with updated data from current_data
-            json.dump(current_data, file, indent=4);
+        database.write_call('utils/books.json', current_data);
         print(f"{obj_to_push} has been added to database.");
 
 #function to list books in books.json
 def list_books():
     #open json file
-    with open('utils/books.json', 'r') as file:
-        current_data = json.load(file);
+    current_data = database.read_call('utils/books.json');
     #if there is data in current data, the function 'call_books()' from utils/database.py is called to list dictionaries in current_data
     if(len(current_data) > 0):
         database.call_books(current_data);
@@ -50,10 +46,8 @@ def prompt_read_book():
         book_name_lookup = input("What is the name of the book you would like to mark as read? ");
         if book_name_lookup.lower() == 'q':
             break;
-        #open json file
-        with open('utils/books.json', 'r') as file:
-            #copy objects as dictionaries into current_data
-            current_data = json.load(file);
+        #open json file and copy objects as dictionaries into current_data
+        current_data = database.read_call('utils/books.json');
         #initial boolean for this function
         book_match = False;
 
@@ -62,15 +56,14 @@ def prompt_read_book():
             if book_name_lookup.lower() == book['name'].lower():
                 #sets boolean for if there's a match
                 book_match = True;
-                #If the book that matches is already, then the following message will be sent to the user
+                #If the book that matches is already read, then the following message will be sent to the user
                 if book['read']:
                     print(f"{book['name'].title()} has already been read.");
                 else:
                     #sets boolean for if there's a match
                     book['read'] = True;
                     #overwrite data in books.json with updated data from current_data
-                    with open('utils/books.json', 'w') as file:
-                        json.dump(current_data, file, indent=4)
+                    database.write_call('utils/books.json', current_data);
                     print(f"{book['name'].title()} has been marked as read.");
                 break;
         if not book_match:
@@ -84,8 +77,7 @@ def prompt_delete_book():
         if book_name_lookup.lower() == 'q':
             break;
         #open json file
-        with open('utils/books.json', 'r') as file:
-            data = json.load(file);
+        data = database.read_call('utils/books.json');
         #initial array/list
         updated_data = [];
         #initial boolean
@@ -102,8 +94,7 @@ def prompt_delete_book():
                 updated_data.append(book);
         #If book is found, overwrite data in books.json
         if book_found:
-            with open('utils/books.json', 'w') as file:
-                json.dump(updated_data, file, indent=4);
+            database.write_call('utils/books.json', updated_data);
         else:
             print(f"{book_name_lookup.title()} is not in directory"); 
 
