@@ -10,14 +10,6 @@ Enter:
 - 'q' or any other key to quit;
 Your choice: """
 
-"""
-{
-    "name": "test",
-    "author": "test",
-    "read": true
-}
-"""
-
 #function to make sure there is an array in books.json if there is no data in the file
 def create_book_table():
     try:
@@ -25,7 +17,6 @@ def create_book_table():
     except json.JSONDecodeError:
         with open('utils/books.json', 'w') as file:
             json.dump([], file);
-
 
 #function to add book to books.json
 def prompt_add_book():
@@ -44,7 +35,7 @@ def prompt_add_book():
         #copy objects as dictionaries into current_data
         current_data.append(obj_to_push);
         database.write_call('utils/books.json', current_data);
-        print(f"{obj_to_push} has been added to database.");
+        print(f"{obj_to_push} has been added to .json database.");
 
 #function to list books in books.json
 def list_books():
