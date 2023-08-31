@@ -1,3 +1,4 @@
+#The whole point of this file is to add json data to a list so it's more simple to view data
 import json;
 
 #Initial array/list
@@ -16,13 +17,6 @@ def read_call(filepath):
         current_data = json.load(file);
     return current_data;
 
-#helper function to overwrite json file
-def write_call(filepath, list_arr):
-    with open(filepath, 'w') as file:
-        json.dump(list_arr, file, indent=4);
-    return list_arr;
-
-
 #The purpose of this function is so that data from books.json can be added to the books list
 def add_book(list_arr):
     filename = 'utils/books.json';
@@ -39,4 +33,12 @@ def add_book(list_arr):
     except FileNotFoundError:
         print(f"File in directory is empty, improperly formatted, or corrupted.");
 
-add_book(books);
+#helper function to overwrite json file
+def write_call(filepath, list_arr):
+    #Reliable way to clear books list
+    del books[:]
+    with open(filepath, 'w') as file:
+        json.dump(list_arr, file, indent=4);
+    #This line is to add current json data into books list
+    add_book(books);
+    return list_arr;

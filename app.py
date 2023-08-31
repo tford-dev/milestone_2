@@ -10,6 +10,23 @@ Enter:
 - 'q' or any other key to quit;
 Your choice: """
 
+"""
+{
+    "name": "test",
+    "author": "test",
+    "read": true
+}
+"""
+
+#function to make sure there is an array in books.json if there is no data in the file
+def create_book_table():
+    try:
+        database.read_call('utils/books.json');
+    except json.JSONDecodeError:
+        with open('utils/books.json', 'w') as file:
+            json.dump([], file);
+
+
 #function to add book to books.json
 def prompt_add_book():
     #while loop so it is possible for users to quit process
@@ -100,6 +117,7 @@ def prompt_delete_book():
 
 #Function to call other functions in file and set console session
 def menu():
+    create_book_table();
     #While loop so that menu() can be ran indefinetly and USER_CHOICE prompt can be displayed after a function is called.
     while True:
         user_input = input(USER_CHOICE);

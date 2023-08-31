@@ -1,7 +1,7 @@
 [
     {
-        "name": "test",
-        "author": "test",
-        "read": true
+        "name": "new",
+        "author": "new",
+        "read": false
     }
 ]
